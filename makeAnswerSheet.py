@@ -6,6 +6,8 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib import colors
 
+HEIGHT = 250
+
 image_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff']
 image_folder_name = input("input your answer sheet folder: ")
 while True:
@@ -32,11 +34,11 @@ y_position = height - 60
 for img in image_files:
     img_path = f'images/{image_folder_name}/{img.name}'
     fixed_img = Image.open(img_path)
-    fixed_width = int(fixed_img.width * 150 / fixed_img.height)
+    fixed_width = int(fixed_img.width * HEIGHT / fixed_img.height)
     if ISTEXT == 'y':
         c.drawString(100, y_position+52, img.stem)
-    c.drawImage(img_path, x=100, y=y_position-100, width=fixed_width, height=150)
-    y_position -= 160
+    c.drawImage(img_path, x=100, y=y_position-HEIGHT+50, width=fixed_width, height=HEIGHT)
+    y_position -= (HEIGHT+10)
 
     # pdfの下まで行ったら次のページを作る
     if y_position < 60:
