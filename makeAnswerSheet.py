@@ -8,6 +8,11 @@ from reportlab.lib import colors
 
 image_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff']
 image_folder_name = input("input your answer sheet folder: ")
+while True:
+    ISTEXT = input("add titles of your answer sheets? (y or n): ")
+    if ISTEXT in ('y', 'n'):
+        break
+    print("input 'y' or 'n'")
 
 # select files of image format
 folder = Path(f'images/{image_folder_name}')
@@ -28,7 +33,8 @@ for img in image_files:
     img_path = f'images/{image_folder_name}/{img.name}'
     fixed_img = Image.open(img_path)
     fixed_width = int(fixed_img.width * 150 / fixed_img.height)
-    c.drawString(100, y_position+52, img.stem)
+    if ISTEXT == 'y':
+        c.drawString(100, y_position+52, img.stem)
     c.drawImage(img_path, x=100, y=y_position-100, width=fixed_width, height=150)
     y_position -= 160
 
