@@ -6,11 +6,11 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib import colors
 
-image_extensions = ['.png', '.jpg', '.jpeg', '.gif', 'bmp', '.tiff']
+image_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff']
 image_folder_name = input("input your answer sheet folder: ")
 
+# select files of image format
 folder = Path(f'images/{image_folder_name}')
-
 image_files = [f for f in folder.rglob('*') if f.suffix.lower() in image_extensions]
 
 # initial settings of pdf
@@ -39,6 +39,3 @@ for img in image_files:
         y_position = height - 60
 
 c.save()
-# image_paths = input("input your answer sheets by separating them with comma: ").split(',')
-# images = [Image.open(f'images/{image}') for image in image_paths]
-
