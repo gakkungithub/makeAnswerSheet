@@ -9,18 +9,22 @@ import subprocess
 
 image_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff']
 image_folder_name = input("input your answer sheet folder: ")
-while True:
-    ISTEXT = input("add titles of your answer sheets? (y or n): ")
-    if ISTEXT in ('y', 'n'):
-        break
-    print("input 'y' or 'n'")
 
 # select files of image format
 folder = Path(f'images/{image_folder_name}')
 image_files = [f for f in folder.rglob('*') if f.suffix.lower() in image_extensions]
 
+width, height = A4
+
 # create the best pdf
 while True:
+    # choose whether to set titles on each form
+    while True:
+        ISTEXT = input("add titles of your answer sheets? (y or n): ")
+        if ISTEXT in ('y', 'n'):
+            break
+        print("input 'y' or 'n'")
+
     # set height in integer (100 or higher)
     while True:
         try:
@@ -40,9 +44,9 @@ while True:
     font_size = 5
     c.setFont('GenShinGothic', font_size)
 
-    width, height = A4
     y_position = height - 60
 
+    # add images to pdf
     for img in image_files:
         img_path = f'images/{image_folder_name}/{img.name}'
         fixed_img = Image.open(img_path)
